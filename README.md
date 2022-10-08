@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/Birdiebot/bubble/raw/main/.github/cover.png"/>
+<img src=".github/cover.png"/>
 <div>
     <a href=""><img src="https://img.shields.io/badge/Bubble-v1.0%20Developer%20Preview-blue" alt="version" /></a>
     <a href="https://hub.docker.com/repository/docker/birdiebot/bubble-aarch64v8"><img src="https://img.shields.io/docker/pulls/birdiebot/bubble-aarch64v8?logo=docker" alt="Docker Pulls"></a>
@@ -22,20 +22,19 @@ The documentation information you may need for Bubble core is listed below:
 
 # About us
 ## About Bubble
-Bubble is a ROS2-based open-source software stack made by the Birdiebot Team founded by the Mechanics and Science Innovation Base in Shanghai University of Engineering Science. Bubble provides a series of solution to the RMU related visual tasks.
+Bubble is a ROS2-based open-source software stack made by the Birdiebot Team of the Mechanics and Science Innovation Base in Shanghai University of Engineering Science. Bubble provides a series of solution to the RMU related visual tasks.
 ## Author
-Birdiebot is a school-level tech-innovation team oprated under the office of Academic Affairs in Shanghai University of Engineering Science. Supported by the Mechanics Innovation Base of Student Science and Technology Innovation Center, Birdiebot is committed to conduct technology innovation activities in robotics related affiars. We hope our work will encourage and promote new engineers for the robotics industry in China.
+Birdiebot is a school-level science and technology innovation team organized by the office of Academic Affairs in Shanghai University of Engineering Science. With the support of the Mechanics Innovation Base under Student Science and Technology Innovation Center, Birdiebot is committed to carry out science and technology innovation activities in robot competitions, robot ecology, engineering culture and other fields. To cultivate young, outstanding engineers for China’s intelligent manufacturing industry.
 
 ## Contributing
-Everyone is welcomed to join the Bubble project to further imporve this ecosystem for the RoboMaster competition. We have some future work plans and ideas listed [here](https://birdiebot.github.io/bubble_documentation/resources/%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE.html).
+We welcome you to join us in the Bubble project to build the RoboMaster visual algorithm software ecosystem. We have some initial ideas about the future maintenance of the Bubble project, and you can participate in the maintenance of the Bubble project [here](https://birdiebot.github.io/bubble_documentation/resources/%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE.html).
 
 ## Contact
-Questions could be raised through Issues page or in the RoboMaster forum. For Bubble related topics, you can also reach us at algorithm@birdiebot.top.
-We are also open for forum and demonstration sessions with Robomaster participants, either online or offline. Feel free to contact us at robomaster@birdiebot.top.
+You can raise any questions on the Github Issues page or in the RoboMaster forum. For Visual Algorithm communication and Bubble project maintenance, you can contact us at algorithm@birdiebot.top. We also welcome other RoboMaster teams to communicate with us both online and offline. You can contact us at robomaster@birdiebot.top.
 
 # License
-Projects that Bubble's referenced or based on could be found [here](https://birdiebot.github.io/bubble_documentation/resources/%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE.html).
+For Bubble's references and other project used in Bubble can be found [here](https://birdiebot.github.io/bubble_documentation/resources/%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE.html).
 
 The Bubble project is licensed under the [GNU AGPL3.0 License](https://www.gnu.org/licenses/agpl-3.0.en.html).
 
-Copyright of Shanghai University of Engineering Science Birdiebot Team. All rights reserved.
+Copyright of Shanghai University of Engineering Science and Technology Student Science and Technology Center Mechanical Innovation Base Birdiebot Team. All rights reserved.

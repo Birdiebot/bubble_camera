@@ -37,17 +37,22 @@ set(SOURCES
   src/rawImg_process.cpp
   src/vInput_base_node.cpp
   src/vInput_cam.cpp
+  src/gx_camera.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_library(${PROJECT_NAME} SHARED
     include/bubble_camera/camera.hpp
+    include/bubble_camera/gxapi/DxImageProc.h
+    include/bubble_camera/gxapi/GxIAPI.h
+    include/bubble_camera/gxapi/gx_utils.h
     ${SOURCES}
 )
 
 target_link_libraries(${PROJECT_NAME}
     ${OpenCV_LIBRARIES}
+    gxiapi
     )
 
   
@@ -59,7 +64,6 @@ rclcpp_components_register_node(${PROJECT_NAME}
   PLUGIN "vInput"
   EXECUTABLE cam
 )
-
 
 # Install binaries
 install(TARGETS ${PROJECT_NAME}

@@ -3,7 +3,7 @@
  * @Date: 2022-01-27 06:41:01
  * @FilePath: /bubble_camera/include/bubble_camera/camera.hpp
  * @LastEditors: Ligcox
- * @LastEditTime: 2022-05-12 03:20:54
+ * @LastEditTime: 2022-05-12 03:27:47
  * License: GNU General Public License v3.0. See LICENSE file in root directory.
  * Copyright (c) 2022 Birdiebot R&D Department
  * Shanghai University Of Engineering Science. All Rights Reserved
@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <ctime>
 #include <string>
+#include <sys/time.h>
+#include <unistd.h>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rcl_interfaces/msg/set_parameters_result.hpp"
@@ -29,6 +31,10 @@
 #include <camera_info_manager/camera_info_manager.h>
 
 using namespace std::chrono_literals;
+
+#include "bubble_camera/gxapi/GxIAPI.h"
+#include "bubble_camera/gxapi/DxImageProc.h"
+#include "bubble_camera/gxapi/gx_utils.h"
 
 const int VINPUT_SOURCE_UNDEFINED = 0;
 const int VINPUT_SOURCE_CAMERA = 1;
@@ -61,29 +67,27 @@ class vInput : public rclcpp::Node
 public:
     explicit vInput(const rclcpp::NodeOptions &node_options = rclcpp::NodeOptions());
     ~vInput();
-    
 
 private:
     rclcpp::TimerBase::SharedPtr timer_ = this->create_wall_timer(
         10ms, std::bind(&vInput::publishRawImage, this));
-    
+
     sensor_msgs::msg::CameraInfo camera_info_msg;
 
-    rmw_qos_profile_t imgraw_qos   =
-    {
-        RMW_QOS_POLICY_HISTORY_KEEP_LAST,
-        1,
-        RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
-        RMW_QOS_POLICY_DURABILITY_VOLATILE,
-        RMW_QOS_DEADLINE_DEFAULT,
-        RMW_QOS_LIFESPAN_DEFAULT,
-        RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_TOPIC,
-        RMW_QOS_LIVELINESS_LEASE_DURATION_DEFAULT,
-        false
-    };
+    rmw_qos_profile_t imgraw_qos =
+        {
+            RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+            1,
+            RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
+            RMW_QOS_POLICY_DURABILITY_VOLATILE,
+            RMW_QOS_DEADLINE_DEFAULT,
+            RMW_QOS_LIFESPAN_DEFAULT,
+            RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_TOPIC,
+            RMW_QOS_LIVELINESS_LEASE_DURATION_DEFAULT,
+            false};
     bool use_image_qos = false;
     image_transport::Publisher image_pub_;
-    
+
     cv_bridge::CvImagePtr img_msg_ptr = std::make_shared<cv_bridge::CvImage>();
 
     // device type
@@ -101,10 +105,13 @@ public:
     void error_process(const int &error_code);
 
 public:
-    // initialize camera
-    int init_camera();
-    int init_video();
-    void select_input_source();
+    GX_STATUS daheng_status;
+    u_char *RGB_image_buf_;
+    GX_DEV_HANDLE hDevice = nullptr;
+    uint32_t nDeviceNum;
+    PGX_FRAME_BUFFER pFrameBuffer = nullptr;
+    int init_daheng();
+    bool getGxapiFrame(cv::Mat &image_raw);
 
 private:
     // image process function
