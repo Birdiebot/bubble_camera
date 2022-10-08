@@ -6,9 +6,9 @@ License: GNU General Public License v3.0.
 See LICENSE file in root directory.
 Author: Ligcox
 Date: 2022-05-10 18:59:25
-FilePath: /bubble/src/bubble_camera/launch/camera_launch.py
+FilePath: /bubble_bringup/home/nvidia/Desktop/bubble/src/bubble_camera/launch/camera_launch.py
 LastEditors: Ligcox
-LastEditTime: 2022-07-16 02:54:09
+LastEditTime: 2022-05-12 00:42:42
 E-mail: robomaster@birdiebot.top
 '''
 
@@ -24,14 +24,28 @@ from launch.events.process.process_exited import ProcessExited
 from ament_index_python.packages import get_package_share_directory
 
 
+def declare_configurable_parameters(parameters):
+    return [DeclareLaunchArgument(param['name'], default_value=param['default'], description=param['description']) for
+            param in parameters]
+
+
+def set_configurable_parameters(parameters):
+    return dict([(param['name'], LaunchConfiguration(param['name'])) for param in parameters])
+
+
 def generate_launch_description():
+    camera_param_dir = LaunchConfiguration(
+        'params_file',
+        default=os.path.join(get_package_share_directory('bubble_camera'),
+                             'config', 'config.yaml')
+    )
+
     # log_level = 'info'
     if (os.getenv('ROS_DISTRO') == "dashing") or (os.getenv('ROS_DISTRO') == "eloquent"):
         return LaunchDescription([
             DeclareLaunchArgument(
                 'params_file',
-                default_value=os.path.join(
-                    get_package_share_directory('bubble_camera'), 'config', 'config.yaml'),
+                default_value=camera_param_dir,
                 description='Full path to camera parameters file'
             ),
 
@@ -39,18 +53,15 @@ def generate_launch_description():
                 package='bubble_camera',
                 node_name="camera",
                 node_executable='cam',
-                parameters=[LaunchConfiguration('params_file')],
+                parameters=[camera_param_dir],
                 output='screen',
             ),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(on_exit=on_exit_restart))
         ])
     else:
         return LaunchDescription([
             DeclareLaunchArgument(
                 'params_file',
-                default_value=os.path.join(
-                    get_package_share_directory('bubble_camera'), 'config', 'config.yaml'),
+                default_value=camera_param_dir,
                 description='Full path to camera parameters file'
             ),
 
@@ -58,7 +69,7 @@ def generate_launch_description():
                 package='bubble_camera',
                 name="camera",
                 executable='cam',
-                parameters=[LaunchConfiguration('params_file')],
+                parameters=[camera_param_dir],
                 output='screen',
             ),
         ])

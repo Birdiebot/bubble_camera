@@ -3,10 +3,9 @@
 <package format="3">
   <name>bubble_camera</name>
   <version>1.0</version>
-  <description>Bubble industrial camera driver package</description>
+  <description>bubble_camera pkg</description>
   <maintainer email="ligcox@birdiebot.top">ligcox</maintainer>
-  <license>GNU AFFERO GENERAL PUBLIC LICENSE v3.0</license>  
-  <author email="ligcox@birdiebot.top">ligcox</author>
+  <license>GNU General Public License v3.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

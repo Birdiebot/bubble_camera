@@ -37,20 +37,33 @@ set(SOURCES
   src/rawImg_process.cpp
   src/vInput_base_node.cpp
   src/vInput_cam.cpp
+  src/hikrobot_camera.cpp
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  /opt/MVS/include/
+  )
 
 add_library(${PROJECT_NAME} SHARED
     include/bubble_camera/camera.hpp
+    include/bubble_camera/mvs/CameraParams.h
+    include/bubble_camera/mvs/MvCameraControl.h
+    include/bubble_camera/mvs/MvErrorDefine.h
+    include/bubble_camera/mvs/MvISPErrorDefine.h
+    include/bubble_camera/mvs/PixelType.h
     ${SOURCES}
+)
+
+LINK_DIRECTORIES(
+    /opt/MVS/lib/aarch64/
 )
 
 target_link_libraries(${PROJECT_NAME}
     ${OpenCV_LIBRARIES}
-    )
+    MvCameraControl
+)
 
-  
 ament_target_dependencies(${PROJECT_NAME}
   ${DEPENDENCIES}
 )
@@ -59,7 +72,6 @@ rclcpp_components_register_node(${PROJECT_NAME}
   PLUGIN "vInput"
   EXECUTABLE cam
 )
-
 
 # Install binaries
 install(TARGETS ${PROJECT_NAME}
