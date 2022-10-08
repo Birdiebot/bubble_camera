@@ -1,0 +1,9 @@
+camera:
+  ros__parameters:
+    # use camera as video resource
+    # type: 1
+    # use video as video resource
+    type: 2
+    resource: '/home/nvidia/Desktop/radia1.mp4'
+    inputAngle: 0.0
+    inputScale: 0.23
